@@ -1,8 +1,8 @@
 import com.android.build.gradle.internal.tasks.factory.dependsOn
 
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
 }
 
 // TODO: Update value to your plugin's name.
@@ -13,19 +13,21 @@ val pluginPackageName = "org.godotengine.plugin.android.template"
 
 android {
     namespace = pluginPackageName
-    compileSdk = 33
+    compileSdk = 34
 
     buildFeatures {
         buildConfig = true
     }
 
     defaultConfig {
-        minSdk = 21
+        minSdk = 22
 
         manifestPlaceholders["godotPluginName"] = pluginName
         manifestPlaceholders["godotPluginPackageName"] = pluginPackageName
         buildConfigField("String", "GODOT_PLUGIN_NAME", "\"${pluginName}\"")
-        setProperty("archivesBaseName", pluginName)
+        base {
+            archivesName = pluginName
+        }
     }
 
     compileOptions {
@@ -38,7 +40,7 @@ android {
 }
 
 dependencies {
-    implementation("org.godotengine:godot:4.3.0.stable")
+    implementation(libs.godot)
     // TODO: Additional dependencies should be added to export_plugin.gd as well.
 }
 
