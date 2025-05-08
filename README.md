@@ -4,8 +4,9 @@
   * Updated Godot renderer to Mobile
   * Updated for Android Studio Meerkat | 2024.3.1 Patch 1
   * Test run on emulated device -> success
+  * Changed to edit the addon export_plugin.gd and plugin.cfg directly from the Godot project, export_scripts_template folder is only used to reset them if they're missing entirely
 
-  **Note:** Does not work the same with godot 4.4.0.stable or 4.4.1.stable [`Github issue #83905`](https://github.com/godotengine/godot/issues/83905)
+  **Note:** Does not work the same with godot 4.4.0.stable or 4.4.1.stable [`Github issue #83905`](https://github.com/godotengine/godot/issues/83905) which caused the fork as a troubleshooting step.
 
 <details>
   <summary>Original Readme</summary>
