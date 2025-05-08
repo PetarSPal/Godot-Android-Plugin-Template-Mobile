@@ -60,11 +60,12 @@ val copyReleaseAARToDemoAddons by tasks.registering(Copy::class) {
 }
 
 val cleanDemoAddons by tasks.registering(Delete::class) {
-    delete("demo/addons/$pluginName")
+    description = "Cleans the addon binaries"
+    delete("demo/addons/$pluginName/bin")
 }
 
 val copyAddonsToDemo by tasks.registering(Copy::class) {
-    description = "Copies the export scripts templates to the plugin's addons directory"
+    description = "Copies the export scripts templates to the plugin's addons directory only if they are missing"
 
     dependsOn(cleanDemoAddons)
     finalizedBy(copyDebugAARToDemoAddons)
@@ -72,6 +73,12 @@ val copyAddonsToDemo by tasks.registering(Copy::class) {
 
     from("export_scripts_template")
     into("demo/addons/$pluginName")
+    eachFile {
+        val destinationFile = File(destinationDir, this.relativePath.pathString)
+        if (destinationFile.exists()) {
+            this.exclude()
+        }
+    }
 }
 
 tasks.named("assemble").configure {
